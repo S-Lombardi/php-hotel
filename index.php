@@ -1,5 +1,36 @@
 <?php
     include __DIR__.'/partials/hotels.php';
+
+
+    if(isset($_GET['parking'])){
+       
+        //variabile per il valore parking selezionato nella select
+        $parking_selected = $_GET['parking'];
+
+        if($parking_selected != "tutti") {
+        //converto il valore inserito dall'utente in un booleano
+            $parking_selected = filter_var($parking_selected,FILTER_VALIDATE_BOOLEAN);
+            echo $parking_selected;
+            //creo un array vuoto in cui inserire gli array associativi si hotels
+            $hotel_with_park = [];
+
+            foreach($hotels as $item){
+                //Se il valore selezionato è uguale a quello ciclato,
+                // lo inserisco nell' array
+                if($parking_selected == $item ['parking']){
+                    $hotel_with_park []= $item;
+
+                }
+                
+            };
+
+            $hotels = $hotel_with_park;
+        }
+        
+    }
+
+    
+    
 ?>
 
 
@@ -12,9 +43,24 @@
         <title>php Hotel</title>
     </head>
     <body>
-
+        <!-- FORM -->
         <div class="container">
+            <form action="index.php" method="GET">
+                <!-- Select parcheggio -->
+                <select  class="form-select mb-5 " name="parking" >
+                    <option value="tutti" selected>Parcheggio</option>
+                    <option value="yes">Hotel con parcheggio</option>
+                    <option value="no">Hotel senza parcheggio</option>
+                </select>
+                <input type="submit">
+                <!-- Fine Select parcheggio -->
+            </form>
+        </div>
+        <!-- FINE FORM -->
 
+
+        <!-- TABELLA -->
+        <div class="container">
             <table class="table">
                     <thead>
                         <tr>
@@ -48,5 +94,6 @@
                 <?php }?>
             </table>
         </div>
+        <!-- FINE TABELLA -->
     </body>
 </html>
