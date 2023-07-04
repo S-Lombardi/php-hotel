@@ -35,7 +35,7 @@
                                 <?php echo $hotel ['description'] ?>
                             </td>
                             <td>
-                                <?php echo $hotel ['parking'] ?>
+                                <?php echo ($hotel ['parking'] ==true) ? "si" : "no" ?>
                             </td>
                             <td>
                                 <?php echo $hotel ['vote'] ?>
